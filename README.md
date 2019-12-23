@@ -1,4 +1,4 @@
-# Docker Stack Vault
+# Docker Stack
 
 A role to deploy a Docker Stack from a docker-compose.yml file in the playbook directory.
 
@@ -11,7 +11,7 @@ DOCKER_USERNAME=mydockeraccount
 DOCKER_PASSWORD=ah32hg3hrgrmbds
 ```
 
-If a Vaultenv secrets file named `secrets.conf` exists in the playbook directory, the role copies this to the server and creates a `.env` file containing Vault credentials if passed as environment variables:
+If a [Vaultenv](https://github.com/channable/vaultenv) secrets file named `secrets.conf` exists in the playbook directory, the role copies this to the server and creates a `.env` file containing [Vault](https://www.vaultproject.io/) credentials if passed as environment variables:
 
 ```
 VAULT_ADDR=https://vault.company.com:443
@@ -27,5 +27,5 @@ If a `PROJECT` environment variable is set, it will be used as the stack name. I
 ```yaml
 - hosts: manager[0]
   roles:
-    - docker-stack-vault
+    - docker-stack
 ```

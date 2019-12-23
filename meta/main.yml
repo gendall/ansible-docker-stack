@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: docker-stack-vault
+  role_name: docker-stack
   author: Rob Stanford
   description: A role to deploy a Docker Stack from a docker-compose.yml file and configure Vaultenv
   company: Gendall Design
