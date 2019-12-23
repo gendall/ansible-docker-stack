@@ -1,0 +1,52 @@
+---
+- name: Copy config files
+  copy:
+    src: "{{ item }}"
+    dest: /docker/
+    force: yes
+  with_fileglob:
+    - "{{ playbook_dir }}/docker-compose.yml"
+    - "{{ playbook_dir }}/secrets.conf"
+
+- name: Write vault credentials
+  template:
+    src: templates/vault.j2
+    dest: /docker/.env
+
+- name: Remove service stack
+  docker_stack:
+    state: absent
+    name: "{{ lookup('env', 'PROJECT') | default('project', true) }}"
+
+- name: Add secrets
+  docker_secret:
+    name: "{{ item | basename }}"
+    data: "{{ lookup('file', item) | string }}"
+    state: present
+  with_fileglob:
+    - "{{ inventory_dir }}/secrets/*"
+
+- name: Authenticate with registry
+  docker_login:
+    registry: "{{ docker_registry }}"
+    username: "{{ lookup('env', 'DOCKER_USERNAME') }}"
+    password: "{{ lookup('env', 'DOCKER_PASSWORD') }}"
+  changed_when: false
+
+- name: Deploy service stack
+  docker_stack:
+    state: present
+    name: "{{ lookup('env', 'PROJECT') | default('project', true) }}"
+    compose: [ /docker/docker-compose.yml ]
+    with_registry_auth: true
+    prune: true
+  environment:
+    TAG: "{{ lookup('env', 'TAG') | default('latest', true) }}"
+    ENV: "{{ lookup('env', 'ENV') | default('production', true) }}"
+
+- name: Clean up
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /docker
