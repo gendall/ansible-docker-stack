@@ -22,10 +22,18 @@ The role will create Docker Secrets from any files found in `{{ inventory_dir }}
 
 If a `PROJECT` environment variable is set, it will be used as the stack name. If `TAG` and `ENV` are set, they will be passed through to the Swarm.
 
-## Example playbook
+## Usage
+
+Include this role in a playbook using a [requirements.txt](https://galaxy.ansible.com/docs/using/installing.html#installing-multiple-roles-from-a-file) file.
+
+### Example playbook
 
 ```yaml
 - hosts: manager[0]
   roles:
     - docker-stack
 ```
+
+## Deployment
+
+This role will be automatically built and deployed to [Ansible Galaxy](https://galaxy.ansible.com) when a [Semver](https://semver.org) tag is pushed to the repo.
