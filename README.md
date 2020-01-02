@@ -36,4 +36,4 @@ Include this role in a playbook using a [requirements.txt](https://galaxy.ansibl
 
 ## Deployment
 
-This role will be automatically built and deployed to [Ansible Galaxy](https://galaxy.ansible.com) when a [Semver](https://semver.org) tag is pushed to the repo.
+This role will be automatically built and deployed to [Ansible Galaxy](https://galaxy.ansible.com/gendall) when a [Semver](https://semver.org) tag is pushed to the repo.
