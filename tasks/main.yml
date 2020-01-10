@@ -5,8 +5,8 @@
     dest: /docker/
     force: yes
   with_fileglob:
-    - "{{ playbook_dir }}/docker-compose.yml"
-    - "{{ playbook_dir }}/secrets.conf"
+    - "{{ lookup('pipe', 'pwd') }}/docker-compose.yml"
+    - "{{ lookup('pipe', 'pwd') }}/secrets.conf"
 
 - name: Write vault credentials
   template:
