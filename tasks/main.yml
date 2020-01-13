@@ -43,6 +43,7 @@
   environment:
     TAG: "{{ lookup('env', 'TAG') | default('latest', true) }}"
     ENV: "{{ lookup('env', 'ENV') | default('production', true) }}"
+    HOST: "{{ hostname }}"
 
 - name: Clean up
   file:
