@@ -17,6 +17,8 @@
   docker_stack:
     state: absent
     name: "{{ lookup('env', 'PROJECT') | default('project', true) }}"
+    absent_retries: 4
+    absent_retries_interval: 4
 
 - name: Add secrets
   docker_secret:
