@@ -47,9 +47,17 @@
     ENV: "{{ lookup('env', 'ENV') | default('production', true) }}"
     HOSTNAME: "{{ hostname }}"
 
-- name: Clean up
+- name: Clean up files
   file:
     path: "{{ item }}"
     state: absent
   with_items:
     - /docker
+
+- name: Clean up docker
+  docker_prune:
+    containers: yes
+    images: yes
+    networks: yes
+    volumes: yes
+    builder_cache: yes
